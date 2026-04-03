@@ -1402,3 +1402,391 @@ ul.cont li {
      font-size: 12px;
      color: #888;
 }
+
+
+/* ================================================================
+   UI/UX Enhancement Layer — Cloud ITsolutions
+   Full-stack premium redesign
+   ================================================================ */
+
+/* CSS custom properties */
+:root {
+     --clr-primary:      #00aeef;
+     --clr-primary-dark: #0090cc;
+     --clr-primary-deep: #0077aa;
+     --clr-dark:         #0a1628;
+     --clr-dark-mid:     #0d2135;
+     --grad-brand:       linear-gradient(135deg, #0077aa 0%, #00aeef 60%, #00d4ef 100%);
+     --grad-dark:        linear-gradient(135deg, #0a1628 0%, #042431 100%);
+     --shadow-sm:        0 2px 12px rgba(0,174,239,0.08);
+     --shadow-md:        0 8px 32px rgba(0,0,0,0.10);
+     --shadow-lg:        0 20px 60px rgba(0,0,0,0.15);
+     --radius:           14px;
+     --ease:             cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Sticky header ---- */
+.header {
+     transition: box-shadow 0.3s var(--ease), padding 0.3s var(--ease);
+     z-index: 1000;
+     position: relative;
+}
+.header.sticky {
+     position: fixed;
+     top: 0; left: 0; right: 0;
+     box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+     padding: 8px 0 !important;
+}
+/* push content down when header becomes fixed */
+.header-spacer {
+     height: 98px;
+     display: none;
+}
+.header.sticky ~ * .header-spacer,
+body.header-is-sticky .header-spacer {
+     display: block;
+}
+
+/* ---- Navigation gradient ---- */
+.header_information {
+     background: linear-gradient(90deg, #0090cc 0%, #0a1628 100%) !important;
+}
+
+/* ---- Gradient section divider ---- */
+.titlepage span {
+     background: linear-gradient(90deg, #0077aa, #00aeef, #00d4ef) !important;
+     height: 4px !important;
+     border-radius: 4px;
+     width: 70px;
+}
+.titlepage h2 {
+     font-weight: 800;
+     letter-spacing: -0.5px;
+}
+
+/* ---- Buttons ---- */
+.read_more {
+     font-weight: 600;
+     letter-spacing: 0.3px;
+     transition: all 0.3s var(--ease) !important;
+}
+.read_more:hover {
+     background: linear-gradient(135deg, #0077aa, #00aeef) !important;
+     border-color: transparent !important;
+     color: #fff !important;
+     box-shadow: 0 8px 24px rgba(0,174,239,0.40);
+     transform: translateY(-2px);
+}
+.sign_btn a {
+     background: #fff;
+     color: #0077aa !important;
+     font-weight: 700;
+     transition: all 0.3s var(--ease) !important;
+}
+.sign_btn a:hover {
+     background: #0a1628 !important;
+     color: #fff !important;
+     box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+.send_btn {
+     background: linear-gradient(135deg, #0077aa, #00aeef) !important;
+     border: none !important;
+     color: #fff !important;
+     font-weight: 700;
+     letter-spacing: 0.5px;
+     transition: all 0.3s var(--ease);
+}
+.send_btn:hover {
+     background: linear-gradient(135deg, #005f8a, #0077aa) !important;
+     box-shadow: 0 8px 24px rgba(0,174,239,0.45);
+     transform: translateY(-2px);
+}
+.submit {
+     transition: all 0.3s var(--ease);
+}
+.submit:hover {
+     background: linear-gradient(135deg, #0077aa, #00aeef) !important;
+     border-color: transparent !important;
+     color: #fff !important;
+}
+
+/* ---- Service cards — icon circle + top accent bar ---- */
+.service_card {
+     border-radius: var(--radius);
+     overflow: hidden;
+     position: relative;
+}
+.service_card::before {
+     content: "";
+     position: absolute;
+     top: 0; left: 0; right: 0;
+     height: 3px;
+     background: linear-gradient(90deg, #0077aa, #00aeef);
+     transform: scaleX(0);
+     transform-origin: left;
+     transition: transform 0.35s var(--ease);
+}
+.service_card:hover::before { transform: scaleX(1); }
+
+.service_card i {
+     width: 72px;
+     height: 72px;
+     background: linear-gradient(135deg, rgba(0,119,170,0.1), rgba(0,174,239,0.18));
+     border-radius: 50%;
+     display: flex !important;
+     align-items: center;
+     justify-content: center;
+     margin: 0 auto 18px auto;
+     font-size: 28px !important;
+     transition: all 0.35s var(--ease);
+}
+.service_card:hover i {
+     background: linear-gradient(135deg, #0077aa, #00aeef) !important;
+     color: #fff !important;
+     box-shadow: 0 8px 24px rgba(0,174,239,0.40);
+     transform: scale(1.08) rotate(-4deg);
+}
+.service_card:hover {
+     border-color: rgba(0,174,239,0.25) !important;
+     box-shadow: 0 12px 40px rgba(0,174,239,0.15) !important;
+     transform: translateY(-6px);
+}
+
+/* ---- Stats strip ---- */
+.stats_section {
+     background: linear-gradient(135deg, #0a1628 0%, #005f8a 50%, #00aeef 100%) !important;
+     position: relative;
+     overflow: hidden;
+}
+.stats_section::before {
+     content: "";
+     position: absolute;
+     top: -60%; left: -20%;
+     width: 140%; height: 220%;
+     background: radial-gradient(ellipse at center, rgba(255,255,255,0.06) 0%, transparent 65%);
+}
+.stat_item {
+     position: relative;
+     z-index: 1;
+}
+.stat_item h3 {
+     font-weight: 800;
+     letter-spacing: -2px;
+     font-size: 54px !important;
+}
+.stat_item p {
+     font-size: 14px !important;
+     letter-spacing: 0.5px;
+     text-transform: uppercase;
+}
+
+/* ---- Portfolio cards ---- */
+.our_box {
+     border-radius: var(--radius) !important;
+     transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease) !important;
+}
+.our_box:hover {
+     transform: translateY(-6px) !important;
+     box-shadow: var(--shadow-lg) !important;
+}
+.our_box_overlay {
+     background: linear-gradient(to top, rgba(10,22,40,0.97) 0%, rgba(0,119,170,0.88) 100%) !important;
+}
+.our_box_overlay .tag {
+     background: rgba(0,174,239,0.35) !important;
+     border: 1px solid rgba(0,174,239,0.5);
+}
+
+/* ---- Testimonial cards ---- */
+.testimonial_card {
+     border-radius: var(--radius) !important;
+     border: 1.5px solid #edf0f3 !important;
+     background: #fff !important;
+     transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s !important;
+}
+.testimonial_card:hover {
+     transform: translateY(-4px) !important;
+     box-shadow: var(--shadow-md) !important;
+     border-color: rgba(0,174,239,0.25) !important;
+}
+.testimonial_card .quote_icon {
+     background: linear-gradient(135deg, #0077aa, #00aeef);
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+     background-clip: text;
+}
+
+/* ---- Process steps ---- */
+.step_num {
+     background: linear-gradient(135deg, #0077aa, #00aeef) !important;
+     box-shadow: 0 6px 20px rgba(0,174,239,0.35);
+     transition: all 0.3s var(--ease);
+}
+.process_step:hover .step_num {
+     transform: scale(1.08);
+     box-shadow: 0 10px 30px rgba(0,174,239,0.5);
+}
+
+/* ---- Experience timeline ---- */
+.timeline::before {
+     background: linear-gradient(to bottom, #00aeef, #0077aa 80%, transparent) !important;
+}
+.timeline_item::before {
+     box-shadow: 0 0 0 2.5px #00aeef, 0 4px 14px rgba(0,174,239,0.45) !important;
+}
+.timeline_item .tl_period {
+     background: linear-gradient(135deg, rgba(0,119,170,0.12), rgba(0,174,239,0.18)) !important;
+     color: #0077aa !important;
+     font-weight: 700;
+}
+
+/* ---- Skill pills ---- */
+.skill_pill {
+     border-radius: 8px !important;
+     font-weight: 600;
+     letter-spacing: 0.2px;
+     transition: all 0.25s var(--ease) !important;
+}
+.skill_pill:hover {
+     border-color: #00aeef !important;
+     color: #0077aa !important;
+     background: rgba(0,174,239,0.08) !important;
+     transform: translateY(-1px);
+}
+.skill_pill.highlight {
+     background: linear-gradient(135deg, #0077aa, #00aeef) !important;
+     border-color: transparent !important;
+}
+
+/* ---- Founder card ---- */
+.founder_avatar {
+     background: linear-gradient(135deg, #0a1628, #00aeef) !important;
+     box-shadow: 0 10px 35px rgba(0,174,239,0.40);
+}
+.founder_links a {
+     background: linear-gradient(135deg, #0077aa, #00aeef) !important;
+     transition: all 0.3s var(--ease) !important;
+}
+.founder_links a:hover {
+     background: linear-gradient(135deg, #005588, #0077aa) !important;
+     transform: translateY(-2px);
+     box-shadow: 0 6px 20px rgba(0,174,239,0.35);
+}
+
+/* ---- Cert badges ---- */
+.cert_badge {
+     border-radius: var(--radius) !important;
+     transition: all 0.3s var(--ease) !important;
+}
+.cert_badge:hover {
+     border-color: #00aeef !important;
+     transform: translateY(-3px);
+     box-shadow: 0 6px 24px rgba(0,174,239,0.15);
+}
+
+/* ---- Contact info boxes ---- */
+.contact_info_box {
+     border-radius: var(--radius) !important;
+     transition: all 0.3s var(--ease) !important;
+}
+.contact_info_box:hover {
+     background: rgba(0,174,239,0.10) !important;
+     border-color: rgba(0,174,239,0.30) !important;
+     transform: translateY(-5px);
+     box-shadow: 0 10px 30px rgba(0,174,239,0.15);
+}
+
+/* ---- Footer ---- */
+.footer {
+     background: linear-gradient(180deg, #0a1628 0%, #042431 100%) !important;
+}
+.copyright {
+     background: linear-gradient(90deg, #0077aa 0%, #00aeef 100%) !important;
+}
+.social_links a {
+     transition: all 0.3s var(--ease) !important;
+}
+.social_links a:hover {
+     background: linear-gradient(135deg, #0077aa, #00aeef) !important;
+     color: #fff !important;
+     transform: translateY(-2px) scale(1.1);
+     box-shadow: 0 4px 14px rgba(0,174,239,0.40);
+}
+
+/* ---- Page hero gradient (no image dependency) ---- */
+.page_hero {
+     background: linear-gradient(135deg, #0a1628 0%, #0077aa 55%, #00aeef 100%) !important;
+     background-size: cover !important;
+}
+.page_hero::before {
+     background: none !important;
+}
+.page_hero h1 {
+     font-weight: 800;
+     letter-spacing: -1px;
+}
+.page_hero .breadcrumb-item.active {
+     color: #7de4ff !important;
+}
+
+/* ---- Back to top ---- */
+#back-to-top.b-show_scrollBut {
+     background: linear-gradient(135deg, #0077aa, #00aeef) !important;
+     box-shadow: 0 4px 16px rgba(0,174,239,0.50);
+}
+
+/* ---- About section background overlay ---- */
+.about {
+     background: linear-gradient(135deg, rgba(247,249,252,0.97), rgba(230,244,255,0.97)),
+                 url(../images/ab_bg.png);
+     background-repeat: no-repeat !important;
+     background-size: 100% 100% !important;
+}
+
+/* ---- Mobile section ---- */
+.mobile {
+     background: linear-gradient(135deg, #0a1628 0%, #042431 60%, #005f8a 100%) !important;
+     background-size: cover !important;
+}
+
+/* ---- 8-service grid spacing ---- */
+.services_grid {
+     margin-top: 10px;
+}
+.services_grid .service_card {
+     padding: 30px 20px;
+}
+.services_grid .service_card h3 {
+     font-size: 16px;
+}
+.services_grid .service_card p {
+     font-size: 14px;
+}
+
+/* ---- Smooth scroll ---- */
+html { scroll-behavior: smooth; }
+
+/* ---- Focus ring ---- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+     outline: 3px solid rgba(0,174,239,0.5);
+     outline-offset: 2px;
+}
+
+/* ---- Input focus glow ---- */
+.main_form .contactus:focus {
+     border-bottom: 2px solid #00aeef !important;
+     outline: none;
+}
+
+/* ---- Responsive tweaks ---- */
+@media (max-width: 767px) {
+     .stat_item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2); }
+     .stat_item:last-child { border-bottom: none; }
+     .founder_card { flex-direction: column; align-items: center; text-align: center; }
+     .founder_links { justify-content: center; }
+     .skill_pills { justify-content: center; }
+     .page_hero h1 { font-size: 32px !important; line-height: 42px !important; }
+}

@@ -34,11 +34,22 @@ $(function () {
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
 	$(window).on('scroll', function () {
-		scroll = $(window).scrollTop();
+		var scroll = $(window).scrollTop();
+
+		/* Back to top */
 		if (scroll >= 100) {
-			$("#back-to-top").addClass('b-show_scrollBut')
+			$("#back-to-top").addClass('b-show_scrollBut');
 		} else {
-			$("#back-to-top").removeClass('b-show_scrollBut')
+			$("#back-to-top").removeClass('b-show_scrollBut');
+		}
+
+		/* Sticky header */
+		if (scroll >= 80) {
+			$('.header').addClass('sticky');
+			$('body').addClass('header-is-sticky');
+		} else {
+			$('.header').removeClass('sticky');
+			$('body').removeClass('header-is-sticky');
 		}
 	});
 	$("#back-to-top").on("click", function () {
