@@ -1790,3 +1790,503 @@ textarea:focus-visible {
      .skill_pills { justify-content: center; }
      .page_hero h1 { font-size: 32px !important; line-height: 42px !important; }
 }
+
+
+/* ================================================================
+   DESIGN SYSTEM v2 — UI/UX Expert + Solution Architect
+   Cloud ITsolutions
+   ================================================================
+
+   Principles:
+   — 8px base grid, 4-step spacing scale
+   — Type scale: Display 72 / H1 56 / H2 40 / H3 24 / Body 16
+   — Color tokens: primary, dark, surface, border, muted
+   — Every interactive element has focus, hover, and active states
+   — Motion: subtle, purposeful, cubic-bezier(0.4,0,0.2,1)
+   ================================================================ */
+
+/* ─── Tokens ───────────────────────────────────────────────────── */
+:root {
+     --c-primary:       #0077cc;
+     --c-primary-lt:    #00aeef;
+     --c-primary-dk:    #005fa3;
+     --c-accent:        #00d4ef;
+     --c-dark:          #0a1628;
+     --c-navy:          #0d2540;
+     --c-text:          #1a2332;
+     --c-muted:         #5a6a7a;
+     --c-border:        #e2eaf0;
+     --c-surface:       #ffffff;
+     --c-bg:            #f4f8fc;
+
+     --grad-brand:      linear-gradient(135deg, var(--c-primary-dk), var(--c-primary-lt));
+     --grad-hero:       linear-gradient(135deg, #0a1628 0%, #0d2540 45%, #0d3a6e 100%);
+     --grad-dark:       linear-gradient(160deg, #0a1628 0%, #0d2540 100%);
+
+     --shadow-xs:       0 1px 4px rgba(0,0,0,0.06);
+     --shadow-sm:       0 4px 16px rgba(0,0,0,0.08);
+     --shadow-md:       0 8px 32px rgba(0,0,0,0.12);
+     --shadow-lg:       0 20px 60px rgba(0,0,0,0.18);
+     --shadow-brand:    0 8px 28px rgba(0,119,204,0.35);
+
+     --radius-sm:       6px;
+     --radius-md:       12px;
+     --radius-lg:       20px;
+     --radius-xl:       28px;
+
+     --ease:            cubic-bezier(0.4, 0, 0.2, 1);
+     --ease-spring:     cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ─── Global resets (design system layer) ──────────────────────── */
+body { color: var(--c-text); }
+
+/* ─── Hero Section ─────────────────────────────────────────────── */
+.hero_section {
+     background: var(--grad-hero);
+     min-height: 100vh;
+     display: flex;
+     align-items: center;
+     position: relative;
+     overflow: hidden;
+     padding: 140px 0 100px;
+}
+/* grid texture */
+.hero_section::before {
+     content: "";
+     position: absolute;
+     inset: 0;
+     background-image:
+          linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+     background-size: 56px 56px;
+     pointer-events: none;
+}
+/* glow orb */
+.hero_section::after {
+     content: "";
+     position: absolute;
+     top: -15%;
+     right: -5%;
+     width: 680px;
+     height: 680px;
+     background: radial-gradient(ellipse, rgba(0,174,239,0.18) 0%, transparent 68%);
+     border-radius: 50%;
+     pointer-events: none;
+}
+.hero_inner {
+     position: relative;
+     z-index: 2;
+}
+/* badge */
+.hero_badge {
+     display: inline-flex;
+     align-items: center;
+     gap: 8px;
+     background: rgba(0,174,239,0.12);
+     border: 1px solid rgba(0,174,239,0.28);
+     color: #7de8ff;
+     font-size: 12px;
+     font-weight: 700;
+     letter-spacing: 1.2px;
+     text-transform: uppercase;
+     padding: 7px 18px;
+     border-radius: 30px;
+     margin-bottom: 30px;
+}
+.hero_badge .badge_dot {
+     width: 7px;
+     height: 7px;
+     background: var(--c-primary-lt);
+     border-radius: 50%;
+     animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink {
+     0%, 100% { opacity: 1; transform: scale(1); }
+     50%       { opacity: 0.4; transform: scale(0.75); }
+}
+/* title */
+.hero_title {
+     font-size: 66px;
+     font-weight: 800;
+     color: #fff;
+     line-height: 1.08;
+     letter-spacing: -2.5px;
+     margin-bottom: 24px;
+     padding: 0;
+}
+.hero_title .grad_text {
+     background: linear-gradient(90deg, #00aeef, #00d4ef 60%, #fff 100%);
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+     background-clip: text;
+}
+/* subtitle */
+.hero_sub {
+     font-size: 18px;
+     color: rgba(255,255,255,0.65);
+     line-height: 1.75;
+     margin-bottom: 44px;
+     max-width: 560px;
+}
+/* CTA row */
+.hero_actions {
+     display: flex;
+     gap: 14px;
+     flex-wrap: wrap;
+     margin-bottom: 68px;
+}
+/* primary button */
+.btn_primary {
+     display: inline-flex;
+     align-items: center;
+     gap: 8px;
+     background: var(--grad-brand);
+     color: #fff !important;
+     font-size: 15px;
+     font-weight: 700;
+     padding: 15px 34px;
+     border-radius: var(--radius-md);
+     transition: all 0.3s var(--ease);
+     box-shadow: var(--shadow-brand);
+     letter-spacing: 0.2px;
+     text-decoration: none !important;
+}
+.btn_primary:hover {
+     transform: translateY(-3px);
+     box-shadow: 0 14px 36px rgba(0,119,204,0.50);
+     color: #fff !important;
+}
+/* ghost button */
+.btn_ghost {
+     display: inline-flex;
+     align-items: center;
+     gap: 8px;
+     background: rgba(255,255,255,0.07);
+     border: 1.5px solid rgba(255,255,255,0.18);
+     color: rgba(255,255,255,0.85) !important;
+     font-size: 15px;
+     font-weight: 600;
+     padding: 15px 28px;
+     border-radius: var(--radius-md);
+     transition: all 0.3s var(--ease);
+     text-decoration: none !important;
+}
+.btn_ghost:hover {
+     background: rgba(255,255,255,0.13);
+     border-color: rgba(255,255,255,0.36);
+     color: #fff !important;
+     transform: translateY(-3px);
+}
+/* inline stats */
+.hero_stats {
+     display: flex;
+     gap: 0;
+     border-top: 1px solid rgba(255,255,255,0.10);
+     padding-top: 36px;
+}
+.hstat {
+     flex: 1;
+     padding-right: 28px;
+     border-right: 1px solid rgba(255,255,255,0.10);
+     margin-right: 28px;
+}
+.hstat:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+.hstat .hstat_num {
+     display: block;
+     font-size: 38px;
+     font-weight: 800;
+     color: #fff;
+     letter-spacing: -1.5px;
+     line-height: 1;
+     margin-bottom: 5px;
+}
+.hstat .hstat_label {
+     font-size: 12px;
+     color: rgba(255,255,255,0.45);
+     text-transform: uppercase;
+     letter-spacing: 0.8px;
+     margin: 0;
+     font-weight: 500;
+}
+/* right-side decorative panel */
+.hero_visual {
+     position: relative;
+     z-index: 2;
+}
+.hero_card_stack {
+     position: relative;
+}
+.hcard {
+     background: rgba(255,255,255,0.06);
+     border: 1px solid rgba(255,255,255,0.10);
+     border-radius: var(--radius-lg);
+     padding: 22px 24px;
+     backdrop-filter: blur(10px);
+     color: rgba(255,255,255,0.9);
+     margin-bottom: 14px;
+     transition: transform 0.3s var(--ease);
+}
+.hcard:hover { transform: translateX(-6px); }
+.hcard_icon {
+     width: 40px;
+     height: 40px;
+     background: var(--grad-brand);
+     border-radius: 10px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin-bottom: 12px;
+     font-size: 16px;
+     color: #fff;
+}
+.hcard h5 {
+     font-size: 14px;
+     font-weight: 700;
+     color: #fff;
+     padding: 0 0 4px 0;
+     margin: 0;
+}
+.hcard p {
+     font-size: 12px;
+     color: rgba(255,255,255,0.5);
+     margin: 0;
+     line-height: 1.5;
+}
+
+/* ─── Section badge ─────────────────────────────────────────────── */
+.section_badge {
+     display: inline-block;
+     background: rgba(0,119,204,0.08);
+     border: 1px solid rgba(0,119,204,0.20);
+     color: var(--c-primary);
+     font-size: 11px;
+     font-weight: 700;
+     letter-spacing: 1.4px;
+     text-transform: uppercase;
+     padding: 5px 14px;
+     border-radius: 20px;
+     margin-bottom: 14px;
+}
+
+/* ─── Redesigned section headings ──────────────────────────────── */
+.titlepage h2 {
+     font-size: 38px !important;
+     letter-spacing: -1px !important;
+     color: var(--c-text) !important;
+     font-weight: 800 !important;
+}
+.titlepage p {
+     color: var(--c-muted) !important;
+     font-size: 16px !important;
+     line-height: 1.7 !important;
+}
+
+/* ─── Service cards v2 ──────────────────────────────────────────── */
+.service_card {
+     background: var(--c-surface) !important;
+     border: 1.5px solid var(--c-border) !important;
+     border-radius: var(--radius-lg) !important;
+     padding: 32px 24px !important;
+     transition: all 0.35s var(--ease) !important;
+     box-shadow: var(--shadow-xs) !important;
+}
+.service_card:hover {
+     border-color: var(--c-primary) !important;
+     box-shadow: 0 16px 48px rgba(0,119,204,0.14) !important;
+     transform: translateY(-8px) !important;
+}
+.service_card i {
+     width: 60px !important;
+     height: 60px !important;
+     background: linear-gradient(135deg, rgba(0,119,204,0.08), rgba(0,174,239,0.16)) !important;
+     border-radius: 14px !important;
+     display: flex !important;
+     align-items: center !important;
+     justify-content: center !important;
+     margin: 0 auto 20px auto !important;
+     font-size: 24px !important;
+     color: var(--c-primary) !important;
+     transition: all 0.35s var(--ease-spring) !important;
+}
+.service_card:hover i {
+     background: var(--grad-brand) !important;
+     color: #fff !important;
+     border-radius: 10px !important;
+     transform: scale(1.1) rotate(-6deg) !important;
+     box-shadow: 0 8px 24px rgba(0,119,204,0.40) !important;
+}
+.service_card h3 {
+     color: var(--c-text) !important;
+     font-weight: 700 !important;
+}
+.service_card p {
+     color: var(--c-muted) !important;
+}
+
+/* ─── Stats (hero-inline replacement for strip) ─────────────────── */
+.stats_section {
+     background: linear-gradient(135deg, #0a1628, #0d3a6e) !important;
+}
+.stat_item h3 {
+     font-size: 52px !important;
+     font-weight: 800 !important;
+     letter-spacing: -2px !important;
+}
+
+/* ─── Section backgrounds ──────────────────────────────────────── */
+.section_light  { background: var(--c-surface) !important; }
+.section_gray   { background: var(--c-bg) !important; }
+.process_section { background: var(--c-bg) !important; }
+
+/* ─── About section v2 ──────────────────────────────────────────── */
+.about {
+     background: var(--c-surface) !important;
+     padding: 100px 0 !important;
+}
+.about .titlepage h2 {
+     font-size: 40px !important;
+}
+.about .titlepage p {
+     font-size: 17px !important;
+     line-height: 1.8 !important;
+     color: #444 !important;
+}
+
+/* ─── Testimonial cards v2 ──────────────────────────────────────── */
+.testimonial_card {
+     background: var(--c-surface) !important;
+     border: 1.5px solid var(--c-border) !important;
+     border-radius: var(--radius-lg) !important;
+     box-shadow: var(--shadow-sm) !important;
+     transition: all 0.3s var(--ease) !important;
+}
+.testimonial_card:hover {
+     box-shadow: var(--shadow-md) !important;
+     border-color: rgba(0,119,204,0.25) !important;
+     transform: translateY(-5px) !important;
+}
+
+/* ─── Process steps v2 ──────────────────────────────────────────── */
+.step_num {
+     background: var(--grad-brand) !important;
+     width: 62px !important;
+     height: 62px !important;
+     border-radius: 16px !important;          /* square, not circle */
+     box-shadow: 0 8px 24px rgba(0,119,204,0.30) !important;
+     font-size: 20px !important;
+}
+.process_step:hover .step_num {
+     transform: translateY(-4px) !important;
+     box-shadow: 0 14px 32px rgba(0,119,204,0.45) !important;
+}
+.process_step h4 { font-weight: 700 !important; }
+
+/* ─── Timeline v2 ────────────────────────────────────────────────── */
+.timeline_item h4 { color: var(--c-text) !important; }
+.timeline_item p  { color: var(--c-muted) !important; }
+
+/* ─── Contact section v2 ────────────────────────────────────────── */
+.contact {
+     background: var(--grad-dark) !important;
+}
+.contact_info_box {
+     border-radius: var(--radius-lg) !important;
+}
+
+/* ─── Page hero v2 ───────────────────────────────────────────────── */
+.page_hero {
+     background: var(--grad-hero) !important;
+     padding: 100px 0 !important;
+}
+.page_hero h1 {
+     font-size: 48px !important;
+     font-weight: 800 !important;
+     letter-spacing: -1.5px !important;
+}
+.page_hero p {
+     font-size: 18px !important;
+     color: rgba(255,255,255,0.7) !important;
+}
+
+/* ─── Founder card v2 ─────────────────────────────────────────────── */
+.founder_card {
+     background: var(--c-bg);
+     border-radius: var(--radius-xl);
+     padding: 48px;
+     border: 1.5px solid var(--c-border);
+}
+.founder_avatar {
+     border-radius: 20px !important;
+     background: var(--grad-brand) !important;
+     box-shadow: 0 12px 40px rgba(0,119,204,0.35) !important;
+}
+
+/* ─── Footer v2 ──────────────────────────────────────────────────── */
+.footer { background: var(--c-dark) !important; }
+.copyright {
+     background: linear-gradient(90deg, var(--c-primary-dk), var(--c-primary-lt)) !important;
+}
+.footer h3 {
+     font-size: 14px !important;
+     text-transform: uppercase;
+     letter-spacing: 1.2px;
+     font-weight: 700;
+}
+
+/* ─── Navigation v2 ─────────────────────────────────────────────── */
+.header_information {
+     background: linear-gradient(90deg, var(--c-navy), var(--c-primary-dk)) !important;
+}
+.navigation.navbar-dark .navbar-nav .nav-link {
+     font-size: 13px !important;
+     font-weight: 600 !important;
+     letter-spacing: 0.5px !important;
+     text-transform: uppercase !important;
+     padding: 0 18px !important;
+}
+.navigation.navbar-dark .navbar-nav .nav-link:hover,
+.navigation.navbar-dark .navbar-nav .active > .nav-link {
+     color: #7de8ff !important;
+}
+
+/* ─── Portfolio v2 ──────────────────────────────────────────────── */
+.our_box {
+     border-radius: var(--radius-lg) !important;
+     box-shadow: var(--shadow-sm) !important;
+}
+.our_box:hover {
+     transform: translateY(-8px) !important;
+     box-shadow: var(--shadow-lg) !important;
+}
+
+/* ─── Skill pills v2 ────────────────────────────────────────────── */
+.skill_group h5 {
+     font-size: 11px !important;
+     letter-spacing: 1.5px !important;
+}
+.skill_pill {
+     font-size: 12px !important;
+     border-radius: var(--radius-sm) !important;
+}
+
+/* ─── Cert badges v2 ────────────────────────────────────────────── */
+.cert_badge { border-radius: var(--radius-md) !important; }
+
+/* ─── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 991px) {
+     .hero_title  { font-size: 48px !important; letter-spacing: -1.5px !important; }
+     .hero_visual { display: none; }
+     .hstat .hstat_num { font-size: 28px !important; }
+     .hero_stats  { flex-wrap: wrap; gap: 20px; }
+     .hstat       { flex: 0 0 45%; border-right: none !important; margin-right: 0 !important; padding-right: 0 !important; }
+}
+@media (max-width: 575px) {
+     .hero_section   { padding: 100px 0 60px !important; }
+     .hero_title     { font-size: 36px !important; letter-spacing: -1px !important; }
+     .hero_sub       { font-size: 16px !important; }
+     .hero_actions   { flex-direction: column; }
+     .btn_primary, .btn_ghost { text-align: center; justify-content: center; }
+     .titlepage h2   { font-size: 28px !important; letter-spacing: -0.5px !important; }
+     .founder_card   { padding: 28px 20px !important; }
+}
