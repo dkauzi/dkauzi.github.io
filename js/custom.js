@@ -2,6 +2,17 @@
     File Name: custom.js
 ---------------------------------------------------------------------*/
 
+/* ─── SMTP2GO email config ──────────────────────────────────────────
+   Fill in your SMTP2GO API key below.
+   Sender must be a verified sender in your SMTP2GO account.
+   ------------------------------------------------------------------ */
+var SMTP2GO_CONFIG = {
+	apiKey:     'YOUR_SMTP2GO_API_KEY',   // <-- paste your key here
+	sender:     'website@clouditsolutions.com',  // verified sender in SMTP2GO
+	recipient:  'dkarigi@gmail.com'
+};
+/* ------------------------------------------------------------------ */
+
 $(function () {
 
 	"use strict";
@@ -59,6 +70,74 @@ $(function () {
 	});
 
 
+	/* Contact form — SMTP2GO
+	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+
+	$('.main_form').on('submit', function (e) {
+		e.preventDefault();
+
+		var $form    = $(this);
+		var $btn     = $form.find('[type="submit"]');
+		var $msg     = $form.find('.form_message');
+
+		var name     = $form.find('[name="name"]').val().trim();
+		var email    = $form.find('[name="email"]').val().trim();
+		var phone    = $form.find('[name="phone"]').val().trim();
+		var subject  = $form.find('[name="subject"]').val().trim() || 'New enquiry from Cloud ITsolutions website';
+		var message  = $form.find('[name="message"]').val().trim();
+
+		if (!name || !email || !message) {
+			$msg.removeClass('success').addClass('error').text('Please fill in name, email and message.').show();
+			return;
+		}
+
+		var htmlBody =
+			'<h3>New website enquiry</h3>' +
+			'<p><strong>Name:</strong> '    + name    + '</p>' +
+			(phone   ? '<p><strong>Phone:</strong> '   + phone   + '</p>' : '') +
+			'<p><strong>Email:</strong> '   + email   + '</p>' +
+			(subject !== 'New enquiry from Cloud ITsolutions website'
+				? '<p><strong>Subject:</strong> ' + subject + '</p>' : '') +
+			'<p><strong>Message:</strong></p><p>' + message.replace(/\n/g, '<br>') + '</p>';
+
+		$btn.prop('disabled', true).text('Sending…');
+		$msg.hide();
+
+		$.ajax({
+			url:         'https://api.smtp2go.com/v3/email/send',
+			type:        'POST',
+			contentType: 'application/json',
+			data:        JSON.stringify({
+				api_key:   SMTP2GO_CONFIG.apiKey,
+				sender:    SMTP2GO_CONFIG.sender,
+				to:        [SMTP2GO_CONFIG.recipient],
+				subject:   subject,
+				html_body: htmlBody
+			}),
+			success: function (res) {
+				if (res && res.data && res.data.succeeded === 1) {
+					$form[0].reset();
+					$msg.removeClass('error').addClass('success')
+						.text('Message sent! We\'ll be in touch within one business day.')
+						.show();
+				} else {
+					$msg.removeClass('success').addClass('error')
+						.text('Could not send — please email us directly at ' + SMTP2GO_CONFIG.recipient)
+						.show();
+				}
+			},
+			error: function () {
+				$msg.removeClass('success').addClass('error')
+					.text('Could not send — please email us directly at ' + SMTP2GO_CONFIG.recipient)
+					.show();
+			},
+			complete: function () {
+				$btn.prop('disabled', false).text('Send Message');
+			}
+		});
+	});
+
+
 
 	/* Countdown
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
@@ -98,7 +177,7 @@ $(function () {
 		});
 	});
 
-	/* Product slider 
+	/* Product slider
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 	// optional
 	$('#blogCarousel').carousel({
