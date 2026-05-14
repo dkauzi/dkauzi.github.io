@@ -8,7 +8,7 @@
    ------------------------------------------------------------------ */
 var SMTP2GO_CONFIG = {
 	apiKey:     'YOUR_SMTP2GO_API_KEY',   // <-- paste your key here
-	sender:     'website@clouditsolutions.com',  // verified sender in SMTP2GO
+	sender:     'hello@deployinfra.ai',   // verified sender in SMTP2GO
 	recipient:  'dkarigi@gmail.com'
 };
 /* ------------------------------------------------------------------ */
@@ -73,12 +73,31 @@ $(function () {
 	/* Contact form — SMTP2GO
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
+	var COOLDOWN_MS = 60000; // 1 minute between submissions per browser
+
 	$('.main_form').on('submit', function (e) {
 		e.preventDefault();
 
 		var $form    = $(this);
 		var $btn     = $form.find('[type="submit"]');
 		var $msg     = $form.find('.form_message');
+
+		// Honeypot — bots fill hidden fields, humans don't
+		if ($form.find('[name="website_url"]').val()) {
+			$form[0].reset();
+			return;
+		}
+
+		// Rate limit — one send per minute per browser
+		var lastSent = parseInt(localStorage.getItem('cit_last_sent') || '0', 10);
+		var now      = Date.now();
+		if (now - lastSent < COOLDOWN_MS) {
+			var secs = Math.ceil((COOLDOWN_MS - (now - lastSent)) / 1000);
+			$msg.removeClass('success').addClass('error')
+				.text('Please wait ' + secs + ' seconds before sending another message.')
+				.show();
+			return;
+		}
 
 		var name     = $form.find('[name="name"]').val().trim();
 		var email    = $form.find('[name="email"]').val().trim();
@@ -117,6 +136,7 @@ $(function () {
 			success: function (res) {
 				if (res && res.data && res.data.succeeded === 1) {
 					$form[0].reset();
+					localStorage.setItem('cit_last_sent', Date.now().toString());
 					$msg.removeClass('error').addClass('success')
 						.text('Message sent! We\'ll be in touch within one business day.')
 						.show();
