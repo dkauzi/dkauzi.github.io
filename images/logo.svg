@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" width="200" height="52" role="img" aria-label="Cloud ITsolutions">
+  <defs>
+    <linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22d4f6"/>
+      <stop offset="100%" stop-color="#0044cc"/>
+    </linearGradient>
+    <linearGradient id="tg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00aeef"/>
+      <stop offset="100%" stop-color="#0066dd"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon mark: gradient rounded square -->
+  <rect x="1" y="4" width="44" height="44" rx="11" fill="url(#ig)"/>
+
+  <!-- Code symbol </> in white -->
+  <text x="5" y="32"
+    font-family="'Courier New', 'Lucida Console', monospace"
+    font-size="18" font-weight="900" fill="white">&lt;/&gt;</text>
+
+  <!-- "Cloud" dark navy + "IT" brand gradient -->
+  <text x="55" y="27"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+    font-size="21" font-weight="800" letter-spacing="-0.3">
+    <tspan fill="#0c1e38">Cloud</tspan><tspan fill="url(#tg)">IT</tspan>
+  </text>
+
+  <!-- "SOLUTIONS" small-caps tagline -->
+  <text x="56" y="43"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+    font-size="10" font-weight="600" fill="#4e6e90" letter-spacing="4">SOLUTIONS</text>
+</svg>
