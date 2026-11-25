@@ -251,7 +251,13 @@ const lampB=new THREE.PointLight('#FFC27A',0,4,2);lampB.position.set(9.6,0.9,3.9
 const lampC=new THREE.PointLight('#FFC27A',0,5,2);lampC.position.set(3.0,2.0,0.45);scene.add(lampC);
 
 // wall cut
-let full=false;function applyWalls(){const h=full?1:1.15/WH;walls.scale.y=h;cord.visible=full;dr2.visible=full;}
+let full=false;const CUT=1.2;
+function applyWalls(){walls.traverse(o=>{if(!o.isMesh)return;const u=o.userData;
+  if(u.y0===undefined){o.geometry.computeBoundingBox();const bb=o.geometry.boundingBox;u.y0=o.position.y+bb.min.y;u.y1=o.position.y+bb.max.y;u.py=o.position.y;u.sy=o.scale.y;}
+  if(full||u.y1<=CUT){o.visible=true;o.scale.y=u.sy;o.position.y=u.py;return;}
+  if(u.y0>=CUT){o.visible=false;return;}
+  const k=(CUT-u.y0)/(u.y1-u.y0);o.visible=true;o.scale.y=u.sy*k;o.position.y=u.y0+(u.py-u.y0)*k;});
+  cord.visible=full;dr2.visible=full;}
 applyWalls();
 
 // labels
@@ -269,7 +275,7 @@ let eve=false;document.getElementById('bEve').onclick=()=>{eve=!eve;setBtn('bEve
   document.body.classList.toggle('eve',eve);};
 let opt=false;function applyOpt(){furnO.visible=wallsO.visible=!opt;furnP.visible=wallsP.visible=opt;setBtn('bOpt',opt);els[6].d.textContent=opt?'Laundry':'Storage';els[7].d.textContent=opt?'Shower room':'Laundry';}
 document.getElementById('bOpt').onclick=()=>{opt=!opt;applyOpt();};
-if(location.hash==='#improved'){opt=true;applyOpt();}
+opt=location.hash!=='#current';applyOpt();
 document.getElementById('bLab').onclick=()=>{showLab=!showLab;setBtn('bLab',showLab);};
 
 function resize(){const w=canvas.clientWidth,h=canvas.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=w<h?58:40;camera.updateProjectionMatrix();}
