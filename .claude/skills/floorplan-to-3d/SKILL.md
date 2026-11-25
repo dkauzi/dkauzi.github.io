@@ -1,6 +1,6 @@
 ---
 name: floorplan-to-3d
-description: Turn a floor plan image into an interactive 3D three.js model (orbit, walk-inside, layout variants, restyled interior) and publish it as a claude.ai artifact and as a page on dkauzi.github.io. Use when the user shares a floor plan or apartment render and asks to visualise, restyle or improve it.
+description: Turn a floor plan image or architectural blueprint (PDF, scan, CAD export) into an interactive 3D three.js model (orbit, walk-inside, layout variants, restyled interior) and publish it as a claude.ai artifact and as a page on dkauzi.github.io. Use when the user shares a floor plan, blueprint or apartment render and asks to visualise, restyle or improve it.
 ---
 
 # Floor plan to interactive 3D model
@@ -12,6 +12,21 @@ Reference implementation: `apartment-3d/index.html` in this repo. It is one self
 1. A model that follows the drawn plan **exactly**. The first version of this model was rejected with "does not follow the design 100%" because the layout was invented. Fidelity to the plan comes first; style comes second.
 2. The new interior style applied on top of that layout.
 3. An optional improved layout, shown next to the as-drawn one, never instead of it.
+
+## Input types
+
+**Rendered plan** (a 3D-looking picture like the Warm Minimal one): there are no dimensions. Scale from a known object (a door is about 0.9 m, a bed about 1.6 to 1.8 m wide) and say you did.
+
+**Blueprint** (a flat, dimensioned drawing: PDF, scan, photo or CAD export): it carries real measurements, so use them instead of guessing.
+1. Get it into an image you can look at. For a PDF, rasterise the page at 150 to 200 dpi and view it; for a CAD export, check for layers or a scale note first. Look at the whole sheet, including the title block, scale (for example 1:100), north arrow and any notes.
+2. Find the scale from a labelled dimension line, not from the scale text alone (scans and printouts are often resized). Convert millimetres to metres.
+3. Trace walls from the dimension chains: write each wall as a rectangle (x0, x1, z0, z1) with its stated thickness. Outer walls are usually thicker than partitions. Check that dimension chains add up to the overall size; if they do not, flag the mismatch rather than averaging it.
+4. Read the symbols: a door is a gap in the wall with a swing arc (the arc shows hinge side and swing direction), a window is a thin multi-line break in the wall, stairs show an arrow for the direction up, fixed furniture and fittings (kitchen runs, WCs, baths, wardrobes) are drawn in outline. Room names and areas in the drawing are labels; keep them.
+5. Take ceiling height, sill heights and door heights from sections or elevations if the sheet has them. Otherwise use 2.6 m ceilings, 0.9 m sills and 2.05 m doors, and tell the user these are assumptions.
+6. If the sheet has several levels, build one level at a time and ask whether to stack them.
+7. List what you could not read (smudged text, cropped edges, unlabelled rooms) and what you assumed, before building. Confirm any assumption that changes the layout.
+
+Either way, the user's rule holds: the as-drawn model matches the source exactly; improvements are a separate mode.
 
 ## Steps
 
